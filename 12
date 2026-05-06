@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Array Example</title>
+</head>
+
+<body>
+
+<h2>Array Elements</h2>
+
+<?php
+
+$fruits = array("Apple", "Banana", "Mango", "Orange");
+
+foreach($fruits as $f)
+{
+    echo $f . "<br>";
+}
+
+echo "<br>Total Elements: " . count($fruits);
+
+?>
+
+</body>
+</html>
