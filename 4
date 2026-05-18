@@ -1,0 +1,32 @@
+CREATE TABLE Student_Result (
+    stud_id    INT PRIMARY KEY,
+    stud_name  VARCHAR(50),
+    subject    VARCHAR(50),
+    Marks      INT,
+    Department VARCHAR(50)
+);
+
+INSERT INTO Student_Result VALUES
+(1, 'Amit',  'Maths',   85, 'CSE'),
+(2, 'Neha',  'Science', 78, 'IT'),
+(3, 'Raj',   'Maths',   90, 'CSE'),
+(4, 'Sneha', 'English', 72, 'MECH'),
+(5, 'Kiran', 'Science', 88, 'IT');
+
+SELECT Department, COUNT(*)
+FROM Student_Result
+GROUP BY Department;
+
+SELECT subject, AVG(Marks)
+FROM Student_Result
+GROUP BY subject;
+
+SELECT Department, AVG(Marks)
+FROM Student_Result
+GROUP BY Department
+HAVING AVG(Marks) > 80;
+
+SELECT subject, COUNT(*)
+FROM Student_Result
+GROUP BY subject
+HAVING COUNT(*) > 2;
