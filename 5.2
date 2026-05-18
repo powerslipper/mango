@@ -1,0 +1,81 @@
+CREATE TABLE Department (
+    Dept_ID   INT PRIMARY KEY,
+    Dept_Name VARCHAR(50)
+);
+
+CREATE TABLE Student (
+    Student_ID   INT PRIMARY KEY,
+    Student_Name VARCHAR(50),
+    Email        VARCHAR(50),
+    Age          INT,
+    Dept_ID      INT,
+    FOREIGN KEY (Dept_ID) REFERENCES Department(Dept_ID)
+);
+
+CREATE TABLE Course (
+    Course_ID   INT PRIMARY KEY,
+    Course_Name VARCHAR(50) NOT NULL,
+    Credits     INT CHECK (Credits >= 1 AND Credits <= 5),
+    Dept_ID     INT,
+    FOREIGN KEY (Dept_ID) REFERENCES Department(Dept_ID)
+);
+
+CREATE TABLE Enrollments (
+    Enrollment_ID INT PRIMARY KEY,
+    Student_ID    INT,
+    Course_name   VARCHAR(50) NOT NULL,
+    Semester      VARCHAR(20) NOT NULL,
+    FOREIGN KEY (Student_ID) REFERENCES Student(Student_ID)
+);
+
+INSERT INTO Department VALUES
+(1,'CSE'),
+(2,'IT'),
+(3,'MECH'),
+(4,'ECE'),
+(5,'CIVIL');
+
+INSERT INTO Student VALUES
+(1, 'Amit',  'amit@g.com',  21, 1),
+(2, 'Neha',  'neha@g.com',  22, 2),
+(3, 'Raj',   'raj@g.com',   20, 3),
+(4, 'Sneha', 'sneha@g.com', 23, 1),
+(5, 'Kiran', 'kiran@g.com', 19, 4);
+
+INSERT INTO Course VALUES
+(1, 'DBMS', 4, 1),
+(2, 'OS',   3, 2),
+(3, 'CN',   4, 1),
+(4, 'DS',   3, 3),
+(5, 'AI',   5, 4);
+
+INSERT INTO Enrollments VALUES
+(1, 1, 'DBMS', 'Sem4'),
+(2, 2, 'OS',   'Sem3'),
+(3, 3, 'CN',   'Sem4'),
+(4, 4, 'DS',   'Sem3'),
+(5, 5, 'AI',   'Sem5');
+
+CREATE VIEW student_info AS
+SELECT Student_Name, Email, Dept_ID
+FROM Student;
+
+CREATE VIEW student_above20 AS
+SELECT *
+FROM Student
+WHERE Age > 20;
+
+CREATE VIEW course_info AS
+SELECT Course_Name, Credits
+FROM Course;
+
+SELECT * FROM student_info;
+SELECT * FROM student_above20;
+SELECT * FROM course_info;
+
+UPDATE student_info
+SET Email = 'newemail@g.com'
+WHERE Student_Name = 'Amit';
+
+DELETE FROM student_info
+WHERE Student_Name = 'Kiran';
