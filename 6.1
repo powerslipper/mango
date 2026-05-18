@@ -1,0 +1,57 @@
+CREATE TABLE Customer (
+    customer_id   INT PRIMARY KEY,
+    customer_name VARCHAR(50),
+    city          VARCHAR(50)
+);
+
+CREATE TABLE Product (
+    Product_id   INT PRIMARY KEY,
+    Product_name VARCHAR(50),
+    Price        DECIMAL(10,2)
+);
+
+CREATE TABLE Orders (
+    Order_id    INT PRIMARY KEY,
+    customer_id INT,
+    Product_id  INT,
+    quantity    INT,
+    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
+    FOREIGN KEY (Product_id)  REFERENCES Product(Product_id)
+);
+
+INSERT INTO Customer VALUES
+(1, 'Amit',  'Pune'),
+(2, 'Neha',  'Mumbai'),
+(3, 'Raj',   'Delhi'),
+(4, 'Sneha', 'Pune'),
+(5, 'Kiran', 'Nagpur');
+
+INSERT INTO Product VALUES
+(1, 'Laptop',     55000),
+(2, 'Mouse',        500),
+(3, 'Keyboard',    1200),
+(4, 'Monitor',    12000),
+(5, 'Headphones',  3000);
+
+INSERT INTO Orders VALUES
+(1, 1, 1, 1),
+(2, 2, 2, 3),
+(3, 3, 3, 2),
+(4, 1, 4, 1),
+(5, 4, 5, 2);
+
+SELECT DISTINCT customer_name
+FROM Customer
+WHERE customer_id IN (SELECT customer_id FROM Orders);
+
+SELECT customer_name
+FROM Customer
+WHERE customer_id NOT IN (SELECT customer_id FROM Orders);
+
+SELECT Product_name, Price
+FROM Product
+WHERE Price = (SELECT MAX(Price) FROM Product);
+
+SELECT o.Order_id, o.quantity, (o.quantity * p.Price) AS total_amount
+FROM Orders o
+JOIN Product p ON o.Product_id = p.Product_id;
