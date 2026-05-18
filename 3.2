@@ -1,0 +1,55 @@
+CREATE TABLE Department (
+    Dept_ID   INT PRIMARY KEY,
+    Dept_Name VARCHAR(50)
+);
+
+CREATE TABLE Employee (
+    emp_id     INT PRIMARY KEY,
+    name       VARCHAR(50),
+    department INT,
+    salary     DECIMAL(10,2),
+    FOREIGN KEY (department) REFERENCES Department(Dept_ID)
+);
+
+CREATE TABLE Student (
+    Student_ID   INT PRIMARY KEY,
+    Student_Name VARCHAR(50),
+    Email        VARCHAR(50),
+    Age          INT,
+    Marks        INT
+);
+
+INSERT INTO Department VALUES
+(1,'CSE'),
+(2,'IT'),
+(3,'MECH'),
+(4,'ECE'),
+(5,'CIVIL');
+
+INSERT INTO Employee VALUES
+(1,'Amit',  1, 6000),
+(2,'Neha',  2, 4500),
+(3,'Raj',   3, 7200),
+(4,'Sneha', 1, 5500),
+(5,'Kiran', 4, 8000);
+
+INSERT INTO Student VALUES
+(1,'Ananya', 'a@g.com', 21, 85),
+(2,'Ravi',   'r@g.com', 22, 45),
+(3,'Pooja',  'p@g.com', 20, 72),
+(4,'Vikas',  'v@g.com', 23, 91),
+(5,'Nisha',  'n@g.com', 21, 60);
+
+SELECT DISTINCT salary
+FROM Employee
+ORDER BY salary ASC;
+
+SELECT Age, MAX(Marks)
+FROM Student
+GROUP BY Age;
+
+SELECT SUM(Marks)
+FROM Student;
+
+SELECT AVG(salary)
+FROM Employee;
